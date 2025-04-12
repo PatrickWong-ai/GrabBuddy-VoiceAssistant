@@ -20,3 +20,8 @@ Key Features
 
 - **Offline Support**  
   Fully functional without internet — built with Vosk and local TTS.
+
+  ---
+
+> Built with Python, Kivy, Vosk, and Pyttsx3
+> Designed for practical deployment in real driving conditions
