@@ -1,0 +1,13 @@
+# Core GUI
+kivy[base]
+
+# Text-to-Speech
+pyttsx3
+
+# Microphone input for STT
+sounddevice
+
+# (Optional - Future Use)
+# vosk                  # Lightweight offline STT
+# openai-whisper        # Whisper STT
+# torch                 # Required for Whisper
