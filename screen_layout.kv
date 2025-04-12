@@ -1,0 +1,224 @@
+ScreenManager:
+    HomeScreen:
+    ContactScreen:
+    MapScreen:
+
+<HomeScreen>:
+    name: "home"
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        spacing: 10
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: 40
+
+            Label:
+                text: "GRAB BUDDY"
+                font_size: 20
+                bold: True
+                halign: "left"
+                valign: "middle"
+                size_hint_x: 0.7
+
+            Label:
+                id: phase_indicator
+                text: "[color=00ff00]●[/color] TRIP PHASE: " + app.current_phase.upper()
+                markup: True
+                font_size: 14
+                halign: "right"
+                valign: "middle"
+                size_hint_x: 0.3
+
+        Label:
+            text: "Hello, [Driver’s name]. I’m your Grab buddy. Say 'Hey Buddy' and ask your question. I'll listen, turn voice into text, and answer — hands-free! I will try my best to understand your needs."
+            halign: "left"
+            valign: "top"
+            text_size: self.width, None
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            id: guidance_label
+            text: "Now your trip phase is: " + app.current_phase + ".\\nYou may ask:\\n1) Your Performance\\n2) New Order\\n3) Total Income of the day\\n4) Total Hours\\n5) Take a Short Break"
+            halign: "left"
+            valign: "top"
+            text_size: self.width, None
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            id: response_label
+            text: ""
+            font_size: 18
+            halign: "center"
+            valign: "middle"
+            text_size: self.size
+            size_hint_y: None
+            height: 30
+
+        ScrollView:
+            size_hint_y: 0.4
+            do_scroll_x: False
+
+            BoxLayout:
+                id: button_box
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 5
+                padding: 10
+
+                Button:
+                    text: "Your Performance"
+                    size_hint_y: None
+                    height: 45
+                    on_press: app.handle_button("performance")
+
+                Button:
+                    text: "New Order"
+                    size_hint_y: None
+                    height: 45
+                    on_press: app.handle_button("new_order")
+
+                Button:
+                    text: "Total Income"
+                    size_hint_y: None
+                    height: 45
+                    on_press: app.handle_button("income")
+
+                Button:
+                    text: "Total Hours"
+                    size_hint_y: None
+                    height: 45
+                    on_press: app.handle_button("hours")
+
+                Button:
+                    text: "Short Break"
+                    size_hint_y: None
+                    height: 45
+                    on_press: app.handle_button("short_break")
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            canvas.before:
+                Color:
+                    rgba: (0, 1, 0.5, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: app.listening_text
+                font_size: 14
+                color: 1,1,1,1
+                background_color: 0, 1, 0.5, 1
+                on_press: app.start_listening()
+
+<ContactScreen>:
+    name:"contact"
+
+    BoxLayout:
+        orientation:"vertical"
+        padding:10
+        spacing:10
+
+        BoxLayout:
+            orientation:"horizontal"
+            size_hint_y: None
+            height: 40
+
+            Label:
+                text: "GRAB BUDDY"
+                font_size: 20
+                bold: True
+                halign: "left"
+                valign: "middle"
+
+            Label:
+                id: phase_label
+                text: "[color=ffff00]●[/color] TRIP PHASE: PICKUP"
+                markup: True
+                font_size: 14
+                halign: "right"
+                valign: "middle"
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+        BoxLayout:
+            id: message_box
+            orientation: "vertical"
+            size_hint_y: None
+            height: self.minimum_height
+            spacing: 8
+            padding: 5
+
+    TextInput:
+        id: message_input
+        hint_text: "Type a message..."
+        size_hint_y: None
+        height: 40
+        multiline: False
+
+    BoxLayout:
+        size_hint_y: None
+        height: 45
+        spacing: 5
+
+        Button:
+            text: "Send"
+            on_press: app.send_message()
+
+        Button:
+            text: "Clear"
+            on_press: app.clear_message()
+
+    BoxLayout:
+        size_hint_y: None
+        height: 45
+        spacing: 5
+
+        Button:
+            text: 'Call "Hey Buddy" to type...'
+            background_color: 0, 1, 0.6, 1
+            on_press: app.start_listening()
+
+        Button:
+            text: 'Call "Back To Screen"'
+            background_color: 1, 0.8, 0.2, 1
+            on_press: app.change_screen("home")
+        
+
+<MapScreen>:
+    name:"map"
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        spacing: 10
+
+        Label:
+            text: "MAP VIEW"
+            font_size: 20
+            bold: True
+            size_hint_y: None
+            height: 40
+            halign: "center"
+            valign: "middle"
+
+        Image:
+            source: "assets/map.jpg"
+            allow_stretch: True
+            keep_ratio: True
+
+        Button:
+            text: "Back to Home Screen"
+            size_hint_y: None
+            height: 50
+            background_color: 0, 0.6, 1, 1
+            on_press: app.change_screen("home")  # or "pickup" if separate screen later
